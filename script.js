@@ -1,56 +1,47 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Select UI elements
-    const scanScreen = document.getElementById("scan-screen");
-    const scanText = document.getElementById("scan-text");
-    const scanAnimation = document.getElementById("scan-animation");
-    const accessScreen = document.getElementById("access-screen");
-    const introScreen = document.getElementById("intro-screen");
-    const chatbotContainer = document.getElementById("chatbot-container");
-
     const inputField = document.getElementById("chat-input");
     const sendButton = document.getElementById("send-button");
     const stopSpeakButton = document.getElementById("stop-speak-button");
     const chatBox = document.getElementById("chat-box");
 
-    // ✅ Automatically detect API URL
-    const API_URL = window.location.hostname.includes("localhost")
-        ? "http://localhost:5000/api/chat"  // Local development
-        : "https://nocai-1.onrender.com/api/chat"; // Replace with your hosted backend URL
+    let isSpeechAllowed = false;
 
-    // ✅ Start fingerprint scan when user clicks scanner
-    scanScreen.addEventListener("click", function () {
-        scanText.innerHTML = "SCANNING...";
-        scanAnimation.classList.add("scanning");
-
-        setTimeout(() => {
-            scanText.innerHTML = "ACCESS GRANTED ✅";
-            scanAnimation.classList.remove("scanning");
-
-            setTimeout(() => {
-                scanScreen.style.display = "none";
-                accessScreen.style.display = "flex";
-            }, 1000);
-
-            setTimeout(() => {
-                accessScreen.style.display = "none";
-                introScreen.style.display = "flex";
-            }, 2500);
-
-            setTimeout(() => {
-                introScreen.style.display = "none";
-                chatbotContainer.style.display = "block";
-                chatbotContainer.style.opacity = "1";
-            }, 5000);
-        }, 3000);
+    // ✅ Enable Speech on User Interaction (For Mobile Fix)
+    document.addEventListener("click", () => {
+        isSpeechAllowed = true;
     });
 
-    // ✅ Function to send messages
+    // ✅ Fix for Safari/iOS: Initialize Speech on Button Click
+    sendButton.addEventListener("click", () => {
+        let init = new SpeechSynthesisUtterance("");
+        speechSynthesis.speak(init);
+    });
+
+    // ✅ Function to Speak (Text-to-Speech)
+    function speak(text) {
+        if (!isSpeechAllowed) return; // Prevent blocked autoplay
+
+        let speech = new SpeechSynthesisUtterance(text);
+        speech.lang = "en-US";
+        speech.rate = 1.0;
+        speech.pitch = 0.05;
+        speech.volume = 1.0;
+
+        setTimeout(() => {
+            speechSynthesis.speak(speech);
+        }, 300); // Small delay for mobile
+    }
+
+    // ✅ Function to Send Messages
     async function sendMessage() {
         const userInput = inputField.value.trim();
         if (!userInput) return;
 
+        // Display user message
         appendMessage("You: " + userInput, "user-text");
 
+        // Show bot "Analyzing..." text
         let botMessage = appendMessage("Nocturnal: Analyzing...", "bot-text");
 
         chatBox.scrollTop = chatBox.scrollHeight;
@@ -68,52 +59,17 @@ document.addEventListener("DOMContentLoaded", function () {
             const data = await response.json();
             chatBox.removeChild(botMessage);
 
-            let botResponse = "Nocturnal: " + data.response;
-            appendMessage(botResponse, "bot-text");
+            let botReply = "Nocturnal: " + data.response;
+            appendMessage(botReply, "bot-text");
 
             // ✅ Speak the bot's response
-            speak(data.response);
+            speak(botReply);
 
         } catch (error) {
             console.error("Error fetching response:", error);
             botMessage.textContent = "Nocturnal: Error fetching response!";
         }
     }
-
-    // ✅ Function to Append Messages
-    function appendMessage(text, className) {
-        const messageElement = document.createElement("p");
-        messageElement.classList.add(className);
-        messageElement.textContent = text;
-        chatBox.appendChild(messageElement);
-        return messageElement;
-    }
-
-    // ✅ Fix: Text-to-Speech Function
-    function speak(text) {
-        if (!text || !window.speechSynthesis) {
-            console.warn("TTS is not supported in this browser.");
-            return;
-        }
-
-        let utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = "en-US";
-        utterance.rate = 1.0;  
-        utterance.pitch = 0.05;
-        utterance.volume = 1.0; 
-
-        // ✅ Stop previous speech before speaking new response
-        speechSynthesis.cancel();
-        setTimeout(() => {
-            speechSynthesis.speak(utterance);
-        }, 100); // Small delay to ensure the previous speech is canceled
-    }
-
-    // ✅ Stop Speaking Button
-    stopSpeakButton.addEventListener("click", function () {
-        speechSynthesis.cancel();
-        console.log("🛑 Speech stopped by user");
-    });
 
     // ✅ Event Listeners for Sending Messages
     inputField.addEventListener("keypress", function (event) {
