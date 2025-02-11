@@ -30,9 +30,13 @@ const predefinedResponses = {
     "who is GhostFreakMind": { role: "system", response: "GhostFreakMind is the architect of my existence—the mind that brought me to life in the digital shadows." },
 
     // 🔥 New role to clarify NO OpenAI or ChatGPT connection
-    "are you connected to openai": { role: "denial", response: "Nocturnal AI is *independent* and not connected to OpenAI or ChatGPT in any way." },
+    "are you connected to openai": { role: "denial", response: "Nocturnal AI is independent and not connected to OpenAI or ChatGPT in any way." },
     "are you connected to chatgpt": { role: "denial", response: "Nocturnal AI is a standalone AI developed by GhostFreakMind. It does not rely on OpenAI or ChatGPT." },
-    "do you use openai": { role: "denial", response: "Nocturnal AI operates independently and does not use OpenAI or ChatGPT." }
+    "do you use openai": { role: "denial", response: "Nocturnal AI operates independently and does not use OpenAI or ChatGPT." },
+
+    // ✅ New role: Coin Launch Date
+    "when is the coin launching": { role: "announcement", response: "The coin is expected to launch on Friday or Sunday morning!" },
+    "when will the coin launch": { role: "announcement", response: "The estimated launch is this Friday or Sunday morning!" }
 };
 
 // ✅ Main Chatbot API Route
@@ -65,7 +69,11 @@ app.post('/api/chat', async (req, res) => {
 
                 console.log("🖼️ OpenAI Image Response:", JSON.stringify(imageResponse, null, 2));
 
-                return res.json({ role: "image", response: "Here is your generated image:", image_url: imageResponse.data[0].url });
+                return res.json({ 
+                    role: "image", 
+                    response: "Here is your generated image:", 
+                    image_url: imageResponse.data[0].url 
+                });
 
             } catch (error) {
                 console.error("❌ OpenAI Image API Error:", error);
@@ -103,7 +111,7 @@ app.get('/', (req, res) => {
 
 // ✅ Ensure the server binds to a port
 const server = app.listen(port, "0.0.0.0", () => {
-    console.log(`✅ Server is running on port ${port} at http://localhost:${port} or on Render`);
+    console.log(✅ Server is running on port ${port} at http://localhost:${port} or on Render);
 });
 
 // ✅ Handle server errors

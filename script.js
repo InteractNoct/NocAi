@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ✅ Function to Speak (Text-to-Speech) with iOS Fix
     function speak(text) {
-        if (!isSpeechAllowed) return; // Prevent autoplay block
+        if (!isSpeechAllowed || !text) return; // Prevent autoplay block
 
         let speech = new SpeechSynthesisUtterance(text);
         speech.lang = "en-US";
@@ -79,13 +79,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ✅ Function to Send Messages
     async function sendMessage() {
-        enableSpeech(); // Force-enable speech before sending
-
         const userInput = inputField.value.trim();
         if (!userInput) return;
 
+        // Display user message
         appendMessage("You: " + userInput, "user-text");
 
+        // Show bot "Analyzing..." text
         let botMessage = appendMessage("Analyzing...", "bot-text");
 
         chatBox.scrollTop = chatBox.scrollHeight;
@@ -103,12 +103,18 @@ document.addEventListener("DOMContentLoaded", function () {
             const data = await response.json();
             chatBox.removeChild(botMessage);
 
-            let botReply = data.response; // ✅ Fix: No "Nocturnal:" prefix
-            appendMessage("Nocturnal: " + botReply, "bot-text"); // ✅ Display with "Nocturnal"
-            
-            setTimeout(() => {
-                speak(botReply); // ✅ Speak only the actual response, NOT "Nocturnal:"
-            }, 1000); // Mobile-friendly delay
+            if (data.image_url) {
+                // ✅ Display Image if the bot generates one
+                appendMessage("Here is your generated image:", "bot-text");
+                let imageElement = document.createElement("img");
+                imageElement.src = data.image_url;
+                imageElement.classList.add("generated-image");
+                chatBox.appendChild(imageElement);
+            } else {
+                let botReply = data.response;
+                appendMessage(botReply, "bot-text");
+                speak(botReply); // ✅ Speak the bot's response
+            }
 
         } catch (error) {
             console.error("Error fetching response:", error);
