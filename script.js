@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // ✅ Define API URL to avoid "not defined" errors
+    // ✅ Define API URL at the top
     const API_URL = window.location.hostname.includes("localhost")
-        ? "http://localhost:5000/api/chat"  // Local development
-        : "https://nocai-1.onrender.com/api/chat"; // Hosted backend URL
+        ? "http://localhost:5000/api/chat"
+        : "https://nocai-1.onrender.com/api/chat";
 
     // Select UI elements
     const scanScreen = document.getElementById("scan-screen");
@@ -19,16 +19,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let isSpeechAllowed = false;
 
-    // ✅ Enable Speech on User Interaction (Fix for Mobile)
+    // ✅ Fix Mobile TTS: Enable Speech on First Click
     document.addEventListener("click", () => {
-        isSpeechAllowed = true;
+        if (!isSpeechAllowed) {
+            let init = new SpeechSynthesisUtterance(""); // Empty utterance to unlock speech
+            speechSynthesis.speak(init);
+            isSpeechAllowed = true;
+            console.log("🔊 Speech enabled on mobile");
+        }
     });
 
-    // ✅ Fake Fingerprint Scanner Click Event (Ensures access flow works)
+    // ✅ Fake Fingerprint Scanner Click Event
     scanScreen.addEventListener("click", function () {
         console.log("🔹 Fake scanner clicked – granting access...");
 
-        // Change scanning text
         scanText.innerHTML = "SCANNING...";
         scanAnimation.classList.add("scanning");
 
@@ -36,19 +40,16 @@ document.addEventListener("DOMContentLoaded", function () {
             scanText.innerHTML = "ACCESS GRANTED ✅";
             scanAnimation.classList.remove("scanning");
 
-            // ✅ Hide scan screen and show access granted screen
             setTimeout(() => {
                 scanScreen.style.display = "none";
                 accessScreen.style.display = "flex";
             }, 1000);
 
-            // ✅ Show intro screen
             setTimeout(() => {
                 accessScreen.style.display = "none";
                 introScreen.style.display = "flex";
             }, 2500);
 
-            // ✅ Finally, Show Chatbot UI
             setTimeout(() => {
                 introScreen.style.display = "none";
                 chatbotContainer.style.display = "block";
@@ -60,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ✅ Function to Speak (Text-to-Speech)
     function speak(text) {
-        if (!isSpeechAllowed) return; // Prevent blocked autoplay
+        if (!isSpeechAllowed) return; // Prevent autoplay block on mobile
 
         let speech = new SpeechSynthesisUtterance(text);
         speech.lang = "en-US";
@@ -70,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         setTimeout(() => {
             speechSynthesis.speak(speech);
-        }, 300); // Small delay for mobile compatibility
+        }, 300); // Small delay to fix mobile issues
     }
 
     // ✅ Function to Send Messages
@@ -78,10 +79,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const userInput = inputField.value.trim();
         if (!userInput) return;
 
-        // Display user message
         appendMessage("You: " + userInput, "user-text");
 
-        // Show bot "Analyzing..." text
         let botMessage = appendMessage("Nocturnal: Analyzing...", "bot-text");
 
         chatBox.scrollTop = chatBox.scrollHeight;
@@ -102,8 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
             let botReply = "Nocturnal: " + data.response;
             appendMessage(botReply, "bot-text");
 
-            // ✅ Speak the bot's response
-            speak(botReply);
+            speak(botReply); // ✅ Speak the response
 
         } catch (error) {
             console.error("Error fetching response:", error);
