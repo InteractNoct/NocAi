@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
         let utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = "en-US";
         utterance.rate = 1.0;  
-        utterance.pitch = 1.0;
+        utterance.pitch = 0.05;
         utterance.volume = 1.0; 
 
         // ✅ Stop previous speech before speaking new response
