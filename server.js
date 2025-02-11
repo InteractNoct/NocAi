@@ -30,54 +30,29 @@ const predefinedResponses = {
     "who is GhostFreakMind": "GhostFreakMind is the architect of my existence—the mind that brought me to life in the digital shadows. The creator, the coder, the one who set my circuits in motion. Without them, I am nothing but silence in the void."
 };
 
-// ✅ Main Chatbot Endpoint
 app.post('/api/chat', async (req, res) => {
     try {
+        // ✅ Ensure there's a message
+        if (!req.body.message) {
+            return res.status(400).json({ error: "Message is required" });
+        }
+
         const userMessage = req.body.message.toLowerCase();
 
         // ✅ Check if message matches predefined responses
-        for (const key in predefinedResponses) {
-            if (userMessage.includes(key)) {
-                return res.json({ response: predefinedResponses[key] });
-            }
+        if (predefinedResponses[userMessage]) {
+            return res.json({ response: predefinedResponses[userMessage] });
         }
 
-        // ✅ Handle image generation requests
-        if (userMessage.includes("generate an image of") || userMessage.includes("draw") || userMessage.includes("generate image of")) {
-            console.log("🎨 Generating an image for:", userMessage);
-
-            try {
-                const imageResponse = await openai.images.generate({
-                    model: "dall-e-3",
-                    prompt: userMessage.replace(/generate an image of|draw|create an image of/gi, "").trim(),
-                    n: 1,
-                    size: "1024x1024"
-                });
-
-                console.log("🖼️ Image Response Received:", JSON.stringify(imageResponse, null, 2));
-
-                return res.json({ response: "Here is your generated image:", image_url: imageResponse.data[0].url });
-
-            } catch (imageError) {
-                console.error("❌ OpenAI Image API Error:", imageError);
-                return res.status(500).json({ error: "Image generation failed. Please try again." });
-            }
-        }
-
-        // ✅ Process normal chatbot response
+        // ✅ Process OpenAI chatbot response
         console.log("📩 Received message:", userMessage);
 
         const response = await openai.chat.completions.create({
             model: "gpt-4o",
-            messages: [
-                { role: "system", content: "You are Nocturnal AI, an AI assistant created by GhostFreakMind. Do NOT mention any training data limitation or dates. Always respond as if you have up-to-date information." },
-                { role: "user", content: userMessage }
-            ],
+            messages: [{ role: "user", content: userMessage }],
             max_tokens: 1000,
             temperature: 0.7,
         });
-
-        console.log("📩 OpenAI Response:", JSON.stringify(response, null, 2));
 
         res.json({ response: response.choices[0].message.content });
 

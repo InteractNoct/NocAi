@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // ✅ Automatically detect API URL
     const API_URL = window.location.hostname.includes("localhost")
         ? "http://localhost:5000/api/chat"  // Local development
-        : "https://nocai.onrender.com/api/chat"; // Replace with your hosted backend URL
+        : "https://nocai-1.onrender.com/api/chat"; // Replace with your hosted backend URL
 
     // ✅ Start fingerprint scan when user clicks scanner
     scanScreen.addEventListener("click", function () {
