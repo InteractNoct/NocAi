@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 3000);
     });
 
-    // ✅ Send Message Function with Improved Error Handling
+    // ✅ Function to send messages
     async function sendMessage() {
         const userInput = inputField.value.trim();
         if (!userInput) return;
@@ -68,26 +68,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 body: JSON.stringify({ message: userInput })
             });
 
-            if (!response.ok) throw new Error("Server responded with an error");
+            if (!response.ok) throw new Error("Server error");
 
             const data = await response.json();
             chatBox.removeChild(botMessage);
 
-            if (data.image_url) {
-                // Display image response
-                const imgElement = document.createElement("img");
-                imgElement.src = data.image_url;
-                imgElement.alt = "Generated Image";
-                imgElement.style.maxWidth = "100%";
-                chatBox.appendChild(imgElement);
-            } else {
-                // Display text response
-                appendMessage("Nocturnal: " + data.response, "bot-text");
-                speak(data.response);
-            }
+            appendMessage("Nocturnal: " + data.response, "bot-text");
         } catch (error) {
-            console.error("❌ Error fetching chatbot response:", error);
-            botMessage.textContent = "Nocturnal: Error fetching response! ";
+            console.error("Error fetching response:", error);
+            botMessage.textContent = "Nocturnal: Error fetching response!";
         }
     }
 
