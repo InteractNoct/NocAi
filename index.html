@@ -1,35 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://nocai-1.onrender.com;">
-        <title>Nocturnal</title>
-        <link rel="stylesheet" href="styles.css">
-        <link rel="icon" type="image/x-icon" href="favicon.ico">
-        <link rel="icon" type="image/png" href="favicon.png">
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- 🔒 Updated Content Security Policy (CSP) -->
+    <meta http-equiv="Content-Security-Policy" 
+          content="default-src 'self'; 
+                   connect-src 'self' https://nocai-1.onrender.com https://fonts.googleapis.com https://fonts.gstatic.com https://cdn.jsdelivr.net; 
+                   img-src 'self' data: https://cryptologos.cc https://s2.coinmarketcap.com https://upload.wikimedia.org https://www.coingecko.com; 
+                   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; 
+                   script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net;">
+
+    <title>Nocturnal</title>
+
+    <!-- 🔗 External Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" href="favicon.png">
+</head>
 <body>
 
-     <!-- 🔥 FINGERPRINT SCAN INTRO -->
-     <div id="scan-screen">
+    <!-- 🔥 Fingerprint Scan Intro -->
+    <div id="scan-screen">
         <h1 id="scan-text">PLACE YOUR FINGER OR CLICK TO SCAN</h1>
         <div id="scan-animation"></div>
-
     </div>
 
-    <!-- ✅ ACCESS GRANTED SCREEN (Hidden Initially) -->
+    <!-- ✅ Access Granted Screen -->
     <div id="access-screen" style="display: none;">
         <h1 id="access-text">ACCESS GRANTED ✅</h1>
     </div>
 
-    <!-- 🔥 INTRO SCREEN (Hidden Initially) -->
+    <!-- 🔥 Intro Screen -->
     <div id="intro-screen" style="display: none;">
         <h1 class="intro-text">WELCOME TO NOCTURNAL'S WORLD</h1>
     </div>
 
-   
-    <!-- 🛠️ CHATBOT CONTAINER (Hidden Initially) -->
+    <!-- 🛠️ Chatbot Container -->
     <div class="chat-container" id="chatbot-container" style="display: none;">
         <h2>Nocturnal AI</h2>
         <div class="chat-box" id="chat-box">
@@ -38,7 +46,6 @@
         <input type="text" id="chat-input" placeholder="Type a message... Press Enter or Send">
         <button id="send-button">Send</button>
         <button id="stop-speak-button">🛑 Stop Speaking</button>
-        
 
         <!-- Contract Address -->
         <div class="contract-address">
@@ -46,7 +53,7 @@
             <button id="copyButton">📋 Copy</button>
         </div>
 
-        <!-- Clickable Links for Twitter & Website -->
+        <!-- Social Links -->
         <div class="clickable-links">
             <a href="https://x.com/n0cturnalai" target="_blank" id="twitterLink">Twitter</a>
             <a href="https://www.nocturnalai.online" target="_blank" id="websiteLink">Website</a>
@@ -71,8 +78,8 @@
             </div>
         </div>
 
-         <!-- How to Buy Section -->
-         <div class="scrollable-container">
+        <!-- 🚀 How to Buy Section -->
+        <div class="scrollable-container">
             <h3>🚀 How to Buy $NOCTURNAL</h3>
             <ol class="step-list">
                 <li>Step 1: Download the Phantom Wallet extension or mobile app.</li>
@@ -81,7 +88,7 @@
             </ol>
         </div>
 
-        <!-- Tokenomics Section -->
+        <!-- 📊 Tokenomics Section -->
         <div class="scrollable-container">
             <h3>📊 Tokenomics</h3>
             <table class="tokenomics-table">
@@ -93,7 +100,7 @@
             </table>
         </div>
 
-        <!-- Roadmap Section -->
+        <!-- 🛠 Development Roadmap -->
         <div class="roadmap-container">
             <h3>🛠 Development Roadmap</h3>
             <div class="roadmap">
@@ -130,10 +137,8 @@
                 </div>
             </div>
         </div>
-
     </div>
 
-    
     <script src="script.js"></script>
 </body>
 </html>
