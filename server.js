@@ -30,41 +30,45 @@ const predefinedResponses = {
     "who is GhostFreakMind": { role: "system", response: "GhostFreakMind is the architect of my existence—the mind that brought me to life in the digital shadows." }
 };
 
-// ✅ Main Chatbot API Endpoint
+// ✅ Main Chatbot API Route
 app.post('/api/chat', async (req, res) => {
-    const userMessage = req.body.message.toLowerCase();
-    
-    // ✅ Check predefined responses
-    for (const key in predefinedResponses) {
-        if (userMessage.includes(key)) {
-            return res.json(predefinedResponses[key]);
+    try {
+        if (!req.body.message) {
+            return res.status(400).json({ role: "error", response: "Message is required." });
         }
-    }
 
-    // ✅ Handle image generation requests
-    if (userMessage.includes("generate an image of") || userMessage.includes("draw") || userMessage.includes("generate image of")) {
-        try {
+        const userMessage = req.body.message.toLowerCase();
+
+        // ✅ Check predefined responses
+        for (const key in predefinedResponses) {
+            if (userMessage.includes(key)) {
+                return res.json(predefinedResponses[key]);
+            }
+        }
+
+        // ✅ Handle image generation requests
+        if (userMessage.includes("generate an image of") || userMessage.includes("draw") || userMessage.includes("generate image of")) {
             console.log("🎨 Generating an image for:", userMessage);
 
-            const imageResponse = await openai.images.generate({
-                model: "dall-e-3",
-                prompt: userMessage.replace(/generate an image of|draw|create an image of/gi, "").trim(),
-                n: 1,
-                size: "1024x1024"
-            });
+            try {
+                const imageResponse = await openai.images.generate({
+                    model: "dall-e-3",
+                    prompt: userMessage.replace(/generate an image of|draw|create an image of/gi, "").trim(),
+                    n: 1,
+                    size: "1024x1024"
+                });
 
-            console.log("🖼️ OpenAI Image Response:", JSON.stringify(imageResponse, null, 2));
+                console.log("🖼️ OpenAI Image Response:", JSON.stringify(imageResponse, null, 2));
 
-            return res.json({ role: "image", response: "Here is your generated image:", image_url: imageResponse.data[0].url });
+                return res.json({ role: "image", response: "Here is your generated image:", image_url: imageResponse.data[0].url });
 
-        } catch (error) {
-            console.error("❌ OpenAI Image API Error:", error);
-            return res.status(500).json({ role: "error", response: "Something went wrong with image generation." });
+            } catch (error) {
+                console.error("❌ OpenAI Image API Error:", error);
+                return res.status(500).json({ role: "error", response: "Something went wrong with image generation." });
+            }
         }
-    }
 
-    // ✅ Process AI chatbot response
-    try {
+        // ✅ Process AI chatbot response
         console.log("📩 Received message:", userMessage);
 
         const response = await openai.chat.completions.create({
@@ -87,7 +91,7 @@ app.post('/api/chat', async (req, res) => {
     }
 });
 
-// ✅ Basic health check
+// ✅ Basic health check route
 app.get('/', (req, res) => {
     res.send("✅ Nocturnal AI Server is Running!");
 });
