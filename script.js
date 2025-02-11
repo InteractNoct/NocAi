@@ -1,5 +1,12 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Select UI elements
+    const scanScreen = document.getElementById("scan-screen");
+    const scanText = document.getElementById("scan-text");
+    const scanAnimation = document.getElementById("scan-animation");
+    const accessScreen = document.getElementById("access-screen");
+    const introScreen = document.getElementById("intro-screen");
+    const chatbotContainer = document.getElementById("chatbot-container");
+
     const inputField = document.getElementById("chat-input");
     const sendButton = document.getElementById("send-button");
     const stopSpeakButton = document.getElementById("stop-speak-button");
@@ -12,10 +19,40 @@ document.addEventListener("DOMContentLoaded", function () {
         isSpeechAllowed = true;
     });
 
-    // ✅ Fix for Safari/iOS: Initialize Speech on Button Click
+    // ✅ Fix for Safari/iOS: Initialize Speech on First User Click
     sendButton.addEventListener("click", () => {
         let init = new SpeechSynthesisUtterance("");
         speechSynthesis.speak(init);
+    });
+
+    // ✅ Fingerprint Scan Click Event
+    scanScreen.addEventListener("click", function () {
+        scanText.innerHTML = "SCANNING...";
+        scanAnimation.classList.add("scanning");
+
+        setTimeout(() => {
+            scanText.innerHTML = "ACCESS GRANTED ✅";
+            scanAnimation.classList.remove("scanning");
+
+            // Show access granted before intro
+            setTimeout(() => {
+                scanScreen.style.display = "none";
+                accessScreen.style.display = "flex";
+            }, 1000);
+
+            // Show intro screen
+            setTimeout(() => {
+                accessScreen.style.display = "none";
+                introScreen.style.display = "flex";
+            }, 2500);
+
+            // Show chatbot UI
+            setTimeout(() => {
+                introScreen.style.display = "none";
+                chatbotContainer.style.display = "block";
+                chatbotContainer.style.opacity = "1";
+            }, 5000);
+        }, 3000);
     });
 
     // ✅ Function to Speak (Text-to-Speech)
@@ -69,6 +106,15 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error("Error fetching response:", error);
             botMessage.textContent = "Nocturnal: Error fetching response!";
         }
+    }
+
+    // ✅ Function to Append Messages
+    function appendMessage(text, className) {
+        const messageElement = document.createElement("p");
+        messageElement.classList.add(className);
+        messageElement.textContent = text;
+        chatBox.appendChild(messageElement);
+        return messageElement;
     }
 
     // ✅ Event Listeners for Sending Messages
