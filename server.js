@@ -111,7 +111,7 @@ app.get('/', (req, res) => {
 
 // ✅ Ensure the server binds to a port
 const server = app.listen(port, "0.0.0.0", () => {
-    console.log(✅ Server is running on port ${port} at http://localhost:${port} or on Render);
+    console.log(`✅ Server is running on port ${port} at http://localhost:${port} or on Render`);
 });
 
 // ✅ Handle server errors
