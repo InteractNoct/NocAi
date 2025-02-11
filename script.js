@@ -73,7 +73,13 @@ document.addEventListener("DOMContentLoaded", function () {
             const data = await response.json();
             chatBox.removeChild(botMessage);
 
-            appendMessage("Nocturnal: " + data.response, "bot-text");
+            // ✅ Append bot response
+            let botResponse = "Nocturnal: " + data.response;
+            appendMessage(botResponse, "bot-text");
+
+            // ✅ Make chatbot speak the response
+            speak(data.response);
+
         } catch (error) {
             console.error("Error fetching response:", error);
             botMessage.textContent = "Nocturnal: Error fetching response!";
@@ -89,14 +95,19 @@ document.addEventListener("DOMContentLoaded", function () {
         return messageElement;
     }
 
-    // ✅ Text-to-Speech Function
+    // ✅ Text-to-Speech Function (Bot Speaks)
     function speak(text) {
-        let speech = new SpeechSynthesisUtterance(text);
-        speech.lang = "en-US";
-        speech.rate = 1.0;
-        speech.pitch = 0.05;
-        speech.volume = 1.0;
-        speechSynthesis.speak(speech);
+        if (!text || !window.speechSynthesis) return;
+
+        let utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = "en-US";
+        utterance.rate = 1.0;  // Adjust speed
+        utterance.pitch = 0.05; // Adjust pitch
+        utterance.volume = 1.0; // Adjust volume
+
+        // Stop previous speech before speaking new response
+        speechSynthesis.cancel();
+        speechSynthesis.speak(utterance);
     }
 
     // ✅ Stop Speaking Button

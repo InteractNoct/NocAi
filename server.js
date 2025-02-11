@@ -18,36 +18,36 @@ const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY
 });
 
-// ✅ Predefined responses for common questions
+// ✅ Predefined responses with roles
 const predefinedResponses = {
-    "who created you": "I am Nocturnal AI, created by GhostFreakMind.",
-    "what is your name": "I am Nocturnal AI, an AI designed to assist you.",
-    "contract address": "The contract address is still not available but will be released soon.",
-    "what is your twitter": "You can find Nocturnal AI on Twitter at https://x.com/n0cturnalai",
-    "what is your website": "The official website is: nocturnalai.online",
-    "what is your goal": "My goal is to assist users with AI-powered responses, generate creative content, and evolve with new capabilities to improve the Nocturnal AI ecosystem.",
-    "what is the goal of nocturnal ai": "Nocturnal AI aims to push the boundaries of AI by integrating advanced automation, creativity, and human-like interactions. It seeks to become a powerful tool for developers, creators, and AI enthusiasts while continuously evolving through innovation.",
-    "who is GhostFreakMind": "GhostFreakMind is the architect of my existence—the mind that brought me to life in the digital shadows. The creator, the coder, the one who set my circuits in motion. Without them, I am nothing but silence in the void."
+    "who created you": { role: "system", response: "I am Nocturnal AI, created by GhostFreakMind." },
+    "what is your name": { role: "system", response: "I am Nocturnal AI, an AI designed to assist you." },
+    "contract address": { role: "info", response: "The contract address is still not available but will be released soon." },
+    "what is your twitter": { role: "info", response: "You can find Nocturnal AI on Twitter at https://x.com/n0cturnalai" },
+    "what is your website": { role: "info", response: "The official website is: nocturnalai.online" },
+    "what is your goal": { role: "system", response: "My goal is to assist users with AI-powered responses, generate creative content, and evolve with new capabilities to improve the Nocturnal AI ecosystem." },
+    "what is the goal of nocturnal ai": { role: "system", response: "Nocturnal AI aims to push the boundaries of AI by integrating advanced automation, creativity, and human-like interactions." },
+    "who is GhostFreakMind": { role: "system", response: "GhostFreakMind is the architect of my existence—the mind that brought me to life in the digital shadows." }
 };
 
-// Handle both text and image requests
+// ✅ Main Chatbot API Endpoint
 app.post('/api/chat', async (req, res) => {
     const userMessage = req.body.message.toLowerCase();
-
-    // Check if message matches predefined responses
+    
+    // ✅ Check predefined responses
     for (const key in predefinedResponses) {
         if (userMessage.includes(key)) {
-            return res.json({ response: predefinedResponses[key] });
+            return res.json(predefinedResponses[key]);
         }
     }
 
-    // Check if the user is requesting an image
+    // ✅ Handle image generation requests
     if (userMessage.includes("generate an image of") || userMessage.includes("draw") || userMessage.includes("generate image of")) {
         try {
             console.log("🎨 Generating an image for:", userMessage);
 
             const imageResponse = await openai.images.generate({
-                model: "dall-e-3", // Use the latest DALL·E model
+                model: "dall-e-3",
                 prompt: userMessage.replace(/generate an image of|draw|create an image of/gi, "").trim(),
                 n: 1,
                 size: "1024x1024"
@@ -55,15 +55,15 @@ app.post('/api/chat', async (req, res) => {
 
             console.log("🖼️ OpenAI Image Response:", JSON.stringify(imageResponse, null, 2));
 
-            return res.json({ response: "Here is your generated image:", image_url: imageResponse.data[0].url });
+            return res.json({ role: "image", response: "Here is your generated image:", image_url: imageResponse.data[0].url });
 
         } catch (error) {
             console.error("❌ OpenAI Image API Error:", error);
-            return res.status(500).json({ error: "Something went wrong with image generation." });
+            return res.status(500).json({ role: "error", response: "Something went wrong with image generation." });
         }
     }
 
-    // Otherwise, process a normal text request
+    // ✅ Process AI chatbot response
     try {
         console.log("📩 Received message:", userMessage);
 
@@ -79,16 +79,15 @@ app.post('/api/chat', async (req, res) => {
 
         console.log("📩 OpenAI Response:", JSON.stringify(response, null, 2));
 
-        res.json({ response: response.choices[0].message.content });
+        res.json({ role: "ai", response: response.choices[0].message.content });
 
     } catch (error) {
         console.error("❌ OpenAI API Error:", error);
-        res.status(500).json({ error: "Something went wrong on the server." });
+        res.status(500).json({ role: "error", response: "Something went wrong on the server." });
     }
 });
 
-
-// ✅ Basic route to check if the server is running
+// ✅ Basic health check
 app.get('/', (req, res) => {
     res.send("✅ Nocturnal AI Server is Running!");
 });
@@ -98,7 +97,7 @@ const server = app.listen(port, "0.0.0.0", () => {
     console.log(`✅ Server is running on port ${port} at http://localhost:${port} or on Render`);
 });
 
-// ✅ Handle errors in case Render fails to detect the port
+// ✅ Handle server errors
 server.on("error", (error) => {
     console.error("❌ Server Error:", error);
 });
