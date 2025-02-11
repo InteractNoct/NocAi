@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // ✅ Define API URL at the top
+    // ✅ Define API URL
     const API_URL = window.location.hostname.includes("localhost")
         ? "http://localhost:5000/api/chat"
         : "https://nocai-1.onrender.com/api/chat";
@@ -19,15 +19,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let isSpeechAllowed = false;
 
-    // ✅ Fix Mobile TTS: Enable Speech on First Click
-    document.addEventListener("click", () => {
+    // ✅ Fix for iOS/Android Speech Synthesis Block
+    function enableSpeech() {
         if (!isSpeechAllowed) {
-            let init = new SpeechSynthesisUtterance(""); // Empty utterance to unlock speech
+            let init = new SpeechSynthesisUtterance("");
             speechSynthesis.speak(init);
             isSpeechAllowed = true;
             console.log("🔊 Speech enabled on mobile");
         }
-    });
+    }
+
+    document.addEventListener("click", enableSpeech);
+    document.addEventListener("touchstart", enableSpeech); // iOS Fix
 
     // ✅ Fake Fingerprint Scanner Click Event
     scanScreen.addEventListener("click", function () {
@@ -61,17 +64,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ✅ Function to Speak (Text-to-Speech)
     function speak(text) {
-        if (!isSpeechAllowed) return; // Prevent autoplay block on mobile
+        if (!isSpeechAllowed) return; // Prevent autoplay block
 
         let speech = new SpeechSynthesisUtterance(text);
         speech.lang = "en-US";
         speech.rate = 1.0;
-        speech.pitch = 0.05;
+        speech.pitch = 0.8; // More robotic tone
         speech.volume = 1.0;
 
         setTimeout(() => {
             speechSynthesis.speak(speech);
-        }, 300); // Small delay to fix mobile issues
+        }, 500); // Small delay fixes mobile issues
     }
 
     // ✅ Function to Send Messages
@@ -81,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         appendMessage("You: " + userInput, "user-text");
 
-        let botMessage = appendMessage("Nocturnal: Analyzing...", "bot-text");
+        let botMessage = appendMessage("Analyzing...", "bot-text");
 
         chatBox.scrollTop = chatBox.scrollHeight;
         inputField.value = "";
@@ -98,10 +101,10 @@ document.addEventListener("DOMContentLoaded", function () {
             const data = await response.json();
             chatBox.removeChild(botMessage);
 
-            let botReply = "Nocturnal: " + data.response;
-            appendMessage(botReply, "bot-text");
+            let botReply = data.response; // ✅ Fix: No "Nocturnal:" prefix
+            appendMessage("Nocturnal: " + botReply, "bot-text");
 
-            speak(botReply); // ✅ Speak the response
+            speak(botReply); // ✅ Speak only the response, not "Nocturnal:"
 
         } catch (error) {
             console.error("Error fetching response:", error);
