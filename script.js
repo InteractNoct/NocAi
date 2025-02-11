@@ -1,4 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // ✅ Define API URL at the top
+    const API_URL = window.location.hostname.includes("localhost")
+        ? "http://localhost:5000/api/chat"  // Local development
+        : "https://nocai-1.onrender.com/api/chat"; // Hosted backend URL
+
     // Select UI elements
     const scanScreen = document.getElementById("scan-screen");
     const scanText = document.getElementById("scan-text");
