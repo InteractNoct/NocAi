@@ -26,19 +26,16 @@ document.addEventListener("DOMContentLoaded", function () {
             scanText.innerHTML = "ACCESS GRANTED ✅";
             scanAnimation.classList.remove("scanning");
 
-            // Show access granted before intro
             setTimeout(() => {
                 scanScreen.style.display = "none";
                 accessScreen.style.display = "flex";
             }, 1000);
 
-            // Show intro
             setTimeout(() => {
                 accessScreen.style.display = "none";
                 introScreen.style.display = "flex";
             }, 2500);
 
-            // Show Chatbot
             setTimeout(() => {
                 introScreen.style.display = "none";
                 chatbotContainer.style.display = "block";
@@ -52,10 +49,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const userInput = inputField.value.trim();
         if (!userInput) return;
 
-        // Display user message
         appendMessage("You: " + userInput, "user-text");
 
-        // Show bot "Analyzing..." text
         let botMessage = appendMessage("Nocturnal: Analyzing...", "bot-text");
 
         chatBox.scrollTop = chatBox.scrollHeight;
@@ -73,11 +68,10 @@ document.addEventListener("DOMContentLoaded", function () {
             const data = await response.json();
             chatBox.removeChild(botMessage);
 
-            // ✅ Append bot response
             let botResponse = "Nocturnal: " + data.response;
             appendMessage(botResponse, "bot-text");
 
-            // ✅ Make chatbot speak the response
+            // ✅ Speak the bot's response
             speak(data.response);
 
         } catch (error) {
@@ -95,19 +89,24 @@ document.addEventListener("DOMContentLoaded", function () {
         return messageElement;
     }
 
-    // ✅ Text-to-Speech Function (Bot Speaks)
+    // ✅ Fix: Text-to-Speech Function
     function speak(text) {
-        if (!text || !window.speechSynthesis) return;
+        if (!text || !window.speechSynthesis) {
+            console.warn("TTS is not supported in this browser.");
+            return;
+        }
 
         let utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = "en-US";
-        utterance.rate = 1.0;  // Adjust speed
-        utterance.pitch = 0.05; // Adjust pitch
-        utterance.volume = 1.0; // Adjust volume
+        utterance.rate = 1.0;  
+        utterance.pitch = 1.0;
+        utterance.volume = 1.0; 
 
-        // Stop previous speech before speaking new response
+        // ✅ Stop previous speech before speaking new response
         speechSynthesis.cancel();
-        speechSynthesis.speak(utterance);
+        setTimeout(() => {
+            speechSynthesis.speak(utterance);
+        }, 100); // Small delay to ensure the previous speech is canceled
     }
 
     // ✅ Stop Speaking Button
