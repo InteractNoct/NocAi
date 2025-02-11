@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let isSpeechAllowed = false;
 
-    // ✅ Fix for iOS/Android Speech Synthesis Block
+    // ✅ Fix: Enable Speech on User Interaction (Mandatory for Mobile Browsers)
     function enableSpeech() {
         if (!isSpeechAllowed) {
             let init = new SpeechSynthesisUtterance("");
@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 3000);
     });
 
-    // ✅ Function to Speak (Text-to-Speech)
+    // ✅ Function to Speak (Text-to-Speech) with iOS Fix
     function speak(text) {
         if (!isSpeechAllowed) return; // Prevent autoplay block
 
@@ -79,6 +79,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // ✅ Function to Send Messages
     async function sendMessage() {
+        enableSpeech(); // Force-enable speech before sending
+
         const userInput = inputField.value.trim();
         if (!userInput) return;
 
@@ -102,9 +104,11 @@ document.addEventListener("DOMContentLoaded", function () {
             chatBox.removeChild(botMessage);
 
             let botReply = data.response; // ✅ Fix: No "Nocturnal:" prefix
-            appendMessage("Nocturnal: " + botReply, "bot-text");
-
-            speak(botReply); // ✅ Speak only the response, not "Nocturnal:"
+            appendMessage("Nocturnal: " + botReply, "bot-text"); // ✅ Display with "Nocturnal"
+            
+            setTimeout(() => {
+                speak(botReply); // ✅ Speak only the actual response, NOT "Nocturnal:"
+            }, 1000); // Mobile-friendly delay
 
         } catch (error) {
             console.error("Error fetching response:", error);
