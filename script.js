@@ -14,19 +14,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let isSpeechAllowed = false;
 
-    // ✅ Enable Speech on User Interaction (For Mobile Fix)
+    // ✅ Enable Speech on User Interaction (Fix for Mobile)
     document.addEventListener("click", () => {
         isSpeechAllowed = true;
     });
 
-    // ✅ Fix for Safari/iOS: Initialize Speech on First User Click
-    sendButton.addEventListener("click", () => {
-        let init = new SpeechSynthesisUtterance("");
-        speechSynthesis.speak(init);
-    });
-
-    // ✅ Fingerprint Scan Click Event
+    // ✅ Fake Fingerprint Scanner Click Event
     scanScreen.addEventListener("click", function () {
+        console.log("🔹 Fake scanner clicked – granting access...");
+
+        // Change scanning text
         scanText.innerHTML = "SCANNING...";
         scanAnimation.classList.add("scanning");
 
@@ -34,24 +31,25 @@ document.addEventListener("DOMContentLoaded", function () {
             scanText.innerHTML = "ACCESS GRANTED ✅";
             scanAnimation.classList.remove("scanning");
 
-            // Show access granted before intro
+            // ✅ Hide scan screen and show access granted screen
             setTimeout(() => {
                 scanScreen.style.display = "none";
                 accessScreen.style.display = "flex";
             }, 1000);
 
-            // Show intro screen
+            // ✅ Show intro screen
             setTimeout(() => {
                 accessScreen.style.display = "none";
                 introScreen.style.display = "flex";
             }, 2500);
 
-            // Show chatbot UI
+            // ✅ Finally, Show Chatbot UI
             setTimeout(() => {
                 introScreen.style.display = "none";
                 chatbotContainer.style.display = "block";
                 chatbotContainer.style.opacity = "1";
-            }, 5000);
+                console.log("✅ Chatbot is now visible");
+            }, 4000);
         }, 3000);
     });
 
