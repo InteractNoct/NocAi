@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // ✅ Define API URL at the top
+    // ✅ Define API URL to avoid "not defined" errors
     const API_URL = window.location.hostname.includes("localhost")
         ? "http://localhost:5000/api/chat"  // Local development
         : "https://nocai-1.onrender.com/api/chat"; // Hosted backend URL
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
         isSpeechAllowed = true;
     });
 
-    // ✅ Fake Fingerprint Scanner Click Event
+    // ✅ Fake Fingerprint Scanner Click Event (Ensures access flow works)
     scanScreen.addEventListener("click", function () {
         console.log("🔹 Fake scanner clicked – granting access...");
 
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         setTimeout(() => {
             speechSynthesis.speak(speech);
-        }, 300); // Small delay for mobile
+        }, 300); // Small delay for mobile compatibility
     }
 
     // ✅ Function to Send Messages
@@ -119,6 +119,12 @@ document.addEventListener("DOMContentLoaded", function () {
         chatBox.appendChild(messageElement);
         return messageElement;
     }
+
+    // ✅ Stop Speaking Button
+    stopSpeakButton.addEventListener("click", function () {
+        speechSynthesis.cancel();
+        console.log("🛑 Speech stopped by user");
+    });
 
     // ✅ Event Listeners for Sending Messages
     inputField.addEventListener("keypress", function (event) {
