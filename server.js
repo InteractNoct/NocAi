@@ -27,7 +27,12 @@ const predefinedResponses = {
     "what is your website": { role: "info", response: "The official website is: nocturnalai.online" },
     "what is your goal": { role: "system", response: "My goal is to assist users with AI-powered responses, generate creative content, and evolve with new capabilities to improve the Nocturnal AI ecosystem." },
     "what is the goal of nocturnal ai": { role: "system", response: "Nocturnal AI aims to push the boundaries of AI by integrating advanced automation, creativity, and human-like interactions." },
-    "who is GhostFreakMind": { role: "system", response: "GhostFreakMind is the architect of my existence—the mind that brought me to life in the digital shadows." }
+    "who is GhostFreakMind": { role: "system", response: "GhostFreakMind is the architect of my existence—the mind that brought me to life in the digital shadows." },
+
+    // 🔥 New role to clarify NO OpenAI or ChatGPT connection
+    "are you connected to openai": { role: "denial", response: "Nocturnal AI is *independent* and not connected to OpenAI or ChatGPT in any way." },
+    "are you connected to chatgpt": { role: "denial", response: "Nocturnal AI is a standalone AI developed by GhostFreakMind. It does not rely on OpenAI or ChatGPT." },
+    "do you use openai": { role: "denial", response: "Nocturnal AI operates independently and does not use OpenAI or ChatGPT." }
 };
 
 // ✅ Main Chatbot API Route
