@@ -1,0 +1,665 @@
+body {
+    background: black;
+    font-family: 'Orbitron', sans-serif;
+    color: lime;
+    text-align: center;
+    margin: 0;
+    overflow: hidden;
+}
+
+/* 🔥 Fingerprint Scanner */
+#scan-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.9);
+    text-transform: uppercase;
+}
+
+/* 🔥 Scan Text */
+#scan-text {
+    font-size: 2rem;
+    color: lime;
+    text-shadow: 0 0 10px lime, 0 0 20px lime;
+}
+
+/* 🔥 Scan Animation */
+#scan-animation {
+    width: 150px;
+    height: 150px;
+    background: url('https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExams2NHluOHJ0dDV5bW54Mzk4dzJieXVneW9jZ2phaDFjaGtidGFnMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/ooibqT8PzyWiWEsg7p/giphy.gif') no-repeat center;
+    background-size: contain;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+/* ✅ Scanning Effect */
+.scanning {
+    animation: flicker 1s infinite alternate;
+}
+
+/* 🔥 Access Granted Screen */
+#access-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: black;
+    text-transform: uppercase;
+}
+
+/* ✅ Hacker Typing Effect for Access Granted */
+#access-text {
+    font-size: 2.5rem;
+    color: lime;
+    text-shadow: 0 0 10px lime, 0 0 20px lime, 0 0 30px lime;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid lime;
+    width: 0;
+    animation: typing 2s steps(20, end) forwards;
+}
+
+/* 🔥 Welcome Screen */
+#intro-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px lime, 0 0 20px lime;
+}
+
+/* ✅ Hacker Typing Effect for Welcome Text */
+.intro-text {
+    font-size: 3rem;
+    color: lime;
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid lime;
+    width: 0;
+    animation: typing 3s steps(30, end) forwards;
+}
+
+/* ✅ Hacker Typing Animation */
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+/* ✅ Flickering Effect */
+@keyframes flicker {
+    0% { filter: brightness(1); }
+    100% { filter: brightness(2); }
+}
+
+/* 🔥 Chatbot */
+#chatbot-container {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+/* Enable Website Scrolling */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto; /* Enables scrolling */
+}
+
+/* Enable Website Scrolling */
+body {
+    background: url('https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHNnNDhzb3kzdHpydWdyY2dvNnd0bXdtbW1neHAyZGl1ZWRzeDB1ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7jk0ZTOG0dfW6PaleD/giphy.gif') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Orbitron', sans-serif;
+    color: #0f0;
+    text-align: center;
+    overflow-y: auto; /* Enables scrolling */
+    max-height: 100vh;
+    animation: startup-glitch 2s ease-in-out;
+}
+
+
+/* Chat Container */
+.chat-container {
+    width: 420px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 2px solid lime;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.85);
+    box-shadow: 0px 0px 15px lime;
+    animation: flicker 10s infinite alternate;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Ensures chatbot stays centered */
+}
+
+/* Chat Title */
+h2 {
+    font-size: 22px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #0f0;
+    text-shadow: 0 0 10px lime, 0 0 20px lime;
+    animation: glow 1.5s infinite alternate;
+}
+
+/* Chat Box */
+.chat-box {
+    height: 250px;
+    overflow-y: auto;
+    border: 1px solid lime;
+    padding: 10px;
+    text-align: left;
+    background: rgba(0, 0, 0, 0.9);
+    box-shadow: inset 0px 0px 10px lime;
+    border-radius: 5px;
+}
+
+/* Typing Effect */
+.typing {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    animation: typing 8s steps(20, end);
+}
+
+/* Bot & User Text */
+.bot-text, .user-text {
+    padding: 8px;
+    margin: 5px 0;
+    display: inline-block;
+    font-size: 14px;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.bot-text {
+    color: #0f0;
+    background: rgba(0, 255, 0, 0.2);
+    border-left: 3px solid lime;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px lime;
+    animation: glitch 3s infinite alternate;
+}
+
+.user-text {
+    color: #0f0;
+    background: rgba(0, 255, 0, 0.1);
+    border-right: 3px solid lime;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: right;
+    float: right;
+    box-shadow: 0 0 5px lime;
+}
+
+/* Input Field */
+input {
+    width: 80%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid lime;
+    background: black;
+    color: lime;
+    outline: none;
+    font-size: 14px;
+    text-shadow: 0 0 5px lime;
+    transition: 0.3s;
+    border-radius: 5px;
+}
+
+input:focus {
+    box-shadow: 0 0 15px lime;
+}
+
+/* Send Button */
+button {
+    background: black;
+    color: lime;
+    border: 2px solid lime;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 14px;
+    text-shadow: 0 0 5px lime;
+    box-shadow: 0 0 10px lime;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: lime;
+    color: black;
+    box-shadow: 0 0 20px lime;
+    transform: scale(1.1);
+}
+
+
+
+/* Contract Address Box */
+.contract-address {
+    margin-top: 20px;
+    padding: 10px;
+    background: rgba(0, 255, 0, 0.2);
+    border: 1px solid lime;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-family: 'Orbitron', sans-serif;
+    color: #0f0;
+    box-shadow: 0px 0px 10px lime;
+}
+
+/* Clickable Links */
+.clickable-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.clickable-links a {
+    padding: 8px 15px;
+    background: rgba(0, 255, 0, 0.2);
+    border: 1px solid lime;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    font-family: 'Orbitron', sans-serif;
+    color: #0f0;
+    box-shadow: 0px 0px 5px lime;
+    transition: 0.3s;
+}
+
+.clickable-links a:hover {
+    background: lime;
+    color: black;
+    box-shadow: 0 0 20px lime;
+    transform: scale(1.1);
+}
+
+/* === Crypto Logos Section - Spinning & Neon Glow === */
+.crypto-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* Circular Frames for Logos */
+.logo-container {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 255, 0, 0.15); /* Transparent neon background */
+    border: 2px solid lime;
+    box-shadow: 0px 0px 10px lime; /* Neon glow effect */
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+/* Crypto Logos Inside Circular Frame */
+.logo-container img {
+    width: 60%;
+    height: auto;
+    animation: spin 4s linear infinite;
+    filter: brightness(1.2);
+    transition: 0.3s;
+}
+
+/* Spinning Animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Hover Effect - Faster Spin */
+.logo-container:hover .spinning-logo {
+    animation: spin 1.5s linear infinite;
+}
+
+/* Glow Effect Pulsing */
+@keyframes pulse {
+    0% { box-shadow: 0px 0px 10px lime; }
+    100% { box-shadow: 0px 0px 20px lime; }
+}
+
+/* Hover Effect - Faster Spin */
+.logo-container:hover .spinning-logo {
+    animation: spin 1.5s linear infinite;
+}
+
+
+/* Animation for the Lines */
+@keyframes moveLines {
+    0% {
+        background-position: 0 0;
+        opacity: 0.5;
+    }
+    50% {
+        background-position: 50px 50px;
+        opacity: 0.7;
+    }
+    100% {
+        background-position: 100px 100px;
+        opacity: 0.5;
+    }
+}
+
+/* === Cyberpunk Effects === */
+
+/* Glitching Borders */
+@keyframes glitch-border {
+    0% { box-shadow: 0px 0px 5px lime, 0px 0px 10px lime; }
+    50% { box-shadow: 0px 0px 15px lime, 0px 0px 25px lime; }
+    100% { box-shadow: 0px 0px 5px lime, 0px 0px 10px lime; }
+}
+
+/* Glitching Effect */
+@keyframes glitch {
+    0% { text-shadow: 1px 1px 5px lime, -1px -1px 5px lime; }
+    100% { text-shadow: -1px -1px 5px lime, 1px 1px 5px lime; }
+}
+
+/* Tokenomics Table */
+.tokenomics-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background: rgba(0, 0, 0, 0.8); /* Dark background */
+    border: 2px solid lime; /* Neon green border */
+    box-shadow: 0px 0px 10px lime;
+}
+
+/* Tokenomics Table Cells */
+.tokenomics-table td {
+    padding: 10px;
+    border: 1px solid lime;
+    font-size: 14px;
+    font-family: 'Orbitron', sans-serif;
+    color: #0f0; /* Neon green text */
+    text-align: center;
+    animation: glitch 1.2s infinite alternate;
+}
+
+/* Alternating Row Glow Effect */
+.tokenomics-table tr:nth-child(even) {
+    background: rgba(0, 255, 0, 0.1);
+}
+
+/* Tokenomics Title */
+.tokenomics-container h3 {
+    font-size: 20px;
+    color: #0f0;
+    text-shadow: 0px 0px 10px lime;
+    animation: glow 1.5s infinite alternate;
+    text-transform: uppercase;
+}
+
+/* Apply Glitch Effect to All Text */
+.glitch-text, .step-list li, .tokenomics-table td {
+    animation: glitch 1.2s infinite alternate;
+}
+
+/* Flickering Effect */
+@keyframes flicker {
+    0% { opacity: 1; }
+    50% { opacity: 0.85; }
+    100% { opacity: 1; }
+}
+
+/* Neon Glow */
+@keyframes glow {
+    0% { text-shadow: 0 0 5px lime; }
+    100% { text-shadow: 0 0 20px lime; }
+}
+
+/* === Centering the "How to Buy" and "Tokenomics" Sections === */
+
+.scrollable-container {
+    width: 90%; /* Ensures it's responsive */
+    max-width: 600px; /* Matches the roadmap section */
+    margin: 20px auto; /* Centers it properly */
+    padding: 20px;
+    border: 2px solid lime;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.85); /* Darker background for better readability */
+    box-shadow: 0px 0px 15px lime; /* Glowing neon effect */
+    animation: flicker 1.5s infinite alternate;
+    text-align: left; /* Keeps text aligned properly */
+}
+
+/* Center the Section Titles */
+.scrollable-container h3 {
+    font-size: 20px;
+    text-transform: uppercase;
+    color: #0f0;
+    text-align: center;
+    text-shadow: 0 0 10px lime, 0 0 20px lime;
+    animation: glow 1.5s infinite alternate;
+}
+
+/* Ensure List Items Align Properly */
+.scrollable-container ol {
+    padding-left: 20px;
+    text-align: left;
+}
+
+/* Steps Look More Like Roadmap */
+.step-list {
+    list-style: none;
+    padding: 0;
+}
+
+.step-list li {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    padding: 10px;
+    color: #0f0;
+    text-shadow: 0 0 5px lime;
+}
+
+/* Add Checkmark Before Steps */
+.step-list li::before {
+    content: "✔"; /* Adds checkmark */
+    margin-right: 10px;
+    color: lime;
+    font-weight: bold;
+}
+
+/* === Centering Tokenomics Table === */
+
+.tokenomics-table {
+    width: 100%;
+    max-width: 550px;
+    margin: 10px auto; /* Centers the table */
+    border-collapse: collapse;
+    background: rgba(0, 0, 0, 0.85); /* Matches roadmap style */
+    border: 2px solid lime;
+    box-shadow: 0px 0px 10px lime;
+}
+
+/* Table Cells */
+.tokenomics-table td {
+    padding: 10px;
+    border: 1px solid lime;
+    font-size: 14px;
+    font-family: 'Orbitron', sans-serif;
+    color: #0f0;
+    text-align: center;
+    animation: slow-glitch 2s infinite alternate;
+}
+
+/* Alternating Row Effect */
+.tokenomics-table tr:nth-child(even) {
+    background: rgba(0, 255, 0, 0.1);
+}
+
+/* === Neon Glow Effects === */
+@keyframes glow {
+    0% { text-shadow: 0 0 5px lime; }
+    100% { text-shadow: 0 0 20px lime; }
+}
+
+@keyframes flicker {
+    0% { opacity: 1; }
+    50% { opacity: 0.85; }
+    100% { opacity: 1; }
+}
+
+@keyframes slow-glitch {
+    0% { text-shadow: 1px 1px 5px lime, -1px -1px 5px black; }
+    50% { text-shadow: -2px -2px 6px lime, 2px 2px 6px black; transform: skewX(-2deg); }
+    100% { text-shadow: 2px 2px 7px lime, -2px -2px 7px black; transform: skewX(2deg); }
+}
+
+/* === Slower Glitching Effect for Bot Response === */
+@keyframes slow-glitch {
+    0% { text-shadow: 1px 1px 5px lime, -1px -1px 5px black; }
+    25% { text-shadow: -2px -2px 6px lime, 2px 2px 6px black; transform: skewX(-2deg); }
+    50% { text-shadow: 2px 2px 7px lime, -2px -2px 7px black; transform: skewX(2deg); }
+    75% { text-shadow: -1px 1px 6px lime, 1px -1px 6px black; transform: skewX(-1deg); }
+    100% { text-shadow: 1px 1px 5px lime, -1px -1px 5px black; transform: skewX(0deg); }
+}
+
+/* Apply Slower Glitching Effect to Bot Responses */
+.bot-text {
+    font-size: 14px;
+    font-family: 'Orbitron', sans-serif;
+    color: #0f0;
+    background: rgba(0, 255, 0, 0.2);
+    border-left: 3px solid lime;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px lime;
+    animation: slow-glitch 2s infinite alternate; /* Slower glitch effect */
+}
+
+/* Glitch Cursor */
+.glitch-cursor::after {
+    content: "█";
+    display: inline-block;
+    animation: glitchCursor 0.6s infinite alternate;
+}
+
+/* Cursor Flickering */
+@keyframes glitchCursor {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.bot-text {
+    font-size: 14px;
+    font-family: 'Orbitron', sans-serif;
+    color: #0f0;
+    background: rgba(0, 255, 0, 0.2);
+    border-left: 3px solid lime;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px lime;
+    animation: glitch 0.5s infinite alternate;
+}
+
+/* === Responsive Layout for Mobile === */
+@media (max-width: 768px) {
+    .chat-container {
+        width: 100%;
+        max-width: 420px;
+    }
+
+    .scrollable-container {
+        max-width: 95%;
+    }
+
+    .crypto-logos {
+        flex-wrap: wrap; /* Ensures logos don't break on smaller screens */
+    }
+}
+
+/* === Roadmap Section - Static Cyberpunk Style === */
+.roadmap-container {
+    width: 90%;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    text-align: center;
+    background: rgba(0, 255, 0, 0.15);
+    border: 2px solid lime;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px lime;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Roadmap Title - Neon Effect */
+.roadmap-container h3 {
+    font-size: 24px;
+    color: #0f0;
+    text-shadow: 0 0 10px lime, 0 0 15px lime;
+}
+
+/* Individual Roadmap Phases - Static Box Style */
+.roadmap-phase {
+    background: rgba(0, 0, 0, 0.85);
+    padding: 15px;
+    margin: 15px auto;
+    border-radius: 8px;
+    border: 2px solid lime;
+    box-shadow: 0px 0px 10px lime;
+    width: 90%;
+    max-width: 550px;
+    position: relative;
+}
+
+/* Phase Titles - Static Neon Effect */
+.roadmap-phase h4 {
+    font-size: 18px;
+    color: lime;
+    text-shadow: 0 0 8px lime, 0 0 12px lime;
+}
+
+/* Roadmap Text - Static Cyberpunk Green */
+.roadmap-phase p {
+    font-size: 14px;
+    color: #0f0;
+    text-shadow: 0 0 5px lime;
+    margin: 5px 0;
+}
+
+/* === Responsive Fix for Roadmap on Mobile === */
+@media (max-width: 768px) {
+    .roadmap-container {
+        width: 95%;
+        max-width: 100%;
+    }
+
+    .roadmap-phase {
+        width: 95%;
+        max-width: 100%;
+    }
+}

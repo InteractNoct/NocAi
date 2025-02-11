@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Nocturnal</title>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <link rel="icon" type="image/png" href="favicon.png">
+    </head>
+<body>
+
+     <!-- 🔥 FINGERPRINT SCAN INTRO -->
+     <div id="scan-screen">
+        <h1 id="scan-text">PLACE YOUR FINGER OR CLICK TO SCAN</h1>
+        <div id="scan-animation"></div>
+
+    </div>
+
+    <!-- ✅ ACCESS GRANTED SCREEN (Hidden Initially) -->
+    <div id="access-screen" style="display: none;">
+        <h1 id="access-text">ACCESS GRANTED ✅</h1>
+    </div>
+
+    <!-- 🔥 INTRO SCREEN (Hidden Initially) -->
+    <div id="intro-screen" style="display: none;">
+        <h1 class="intro-text">WELCOME TO NOCTURNAL'S WORLD</h1>
+    </div>
+
+   
+    <!-- 🛠️ CHATBOT CONTAINER (Hidden Initially) -->
+    <div class="chat-container" id="chatbot-container" style="display: none;">
+        <h2>Nocturnal AI</h2>
+        <div class="chat-box" id="chat-box">
+            <p class="bot-text"> Nocturnal: Hello! How can I assist you?</p>
+        </div>
+        <input type="text" id="chat-input" placeholder="Type a message... Press Enter or Send">
+        <button id="send-button">Send</button>
+        <button id="stop-speak-button">🛑 Stop Speaking</button>
+        
+
+        <!-- Contract Address -->
+        <div class="contract-address">
+            <span id="contractText">Contract Address: Still not available, but will be released soon.</span>
+            <button id="copyButton">📋 Copy</button>
+        </div>
+
+        <!-- Clickable Links for Twitter & Website -->
+        <div class="clickable-links">
+            <a href="https://x.com/n0cturnalai" target="_blank" id="twitterLink">Twitter</a>
+            <a href="https://www.nocturnalai.online" target="_blank" id="websiteLink">Website</a>
+        </div>
+
+        <!-- Spinning Circular Crypto Logos -->
+        <div class="crypto-logos">
+            <div class="logo-container">
+                <img src="https://s2.coinmarketcap.com/static/cloud/img/coinmarketcap_1.svg" alt="CoinMarketCap" class="spinning-logo">
+            </div>
+            <div class="logo-container">
+                <img src="https://www.coingecko.com/favicon-32x32.png" alt="CoinGecko" class="spinning-logo">
+            </div>
+            <div class="logo-container">
+                <img src="https://cryptologos.cc/logos/solana-sol-logo.png" alt="Solana" class="spinning-logo">
+            </div>
+            <div class="logo-container">
+                <img src="https://upload.wikimedia.org/wikipedia/en/b/bd/Pump_fun_logo.png" alt="Pump.fun" class="spinning-logo">
+            </div>
+            <div class="logo-container">
+                <img src="https://cryptologos.cc/logos/raydium-ray-logo.png" alt="Raydium" class="spinning-logo">
+            </div>
+        </div>
+
+         <!-- How to Buy Section -->
+         <div class="scrollable-container">
+            <h3>🚀 How to Buy $NOCTURNAL</h3>
+            <ol class="step-list">
+                <li>Step 1: Download the Phantom Wallet extension or mobile app.</li>
+                <li>Step 2: Purchase Solana and send it to your Phantom Wallet.</li>
+                <li>Step 3: Go to the swap tab, paste the contract address, and swap for $NOCTURNAL.</li>
+            </ol>
+        </div>
+
+        <!-- Tokenomics Section -->
+        <div class="scrollable-container">
+            <h3>📊 Tokenomics</h3>
+            <table class="tokenomics-table">
+                <tr><td>0% TAX</td><td>No transaction tax applied</td></tr>
+                <tr><td>2% DEV</td><td>For continuous development</td></tr>
+                <tr><td>2% AI Development</td><td>Funds allocated for AI enhancement</td></tr>
+                <tr><td>1B SUPPLY</td><td>Total token supply</td></tr>
+                <tr><td>MINT REVOKED</td><td>Minting is permanently disabled</td></tr>
+            </table>
+        </div>
+
+        <!-- Roadmap Section -->
+        <div class="roadmap-container">
+            <h3>🛠 Development Roadmap</h3>
+            <div class="roadmap">
+                <div class="roadmap-phase">
+                    <h4>🔥 Phase 1: Concept & Alpha Testing (Completed ✅)</h4>
+                    <p>✅ Develop core AI chatbot logic with glitch effects.</p>
+                    <p>✅ Implement TTS (Text-to-Speech) for AI responses.</p>
+                    <p>✅ Establish website structure & basic UI.</p>
+                    <p>✅ AI-Generated Images.</p>
+                </div>
+
+                <div class="roadmap-phase">
+                    <h4>🚀 Phase 2: Enhanced AI Interactions (In Progress)</h4>
+                    <p>🚀 Improve chatbot learning & response variety.</p>
+                    <p>🚀 Integrate advanced speech synthesis for ultra-robotic tones.</p>
+                    <p>🚀 Develop Nocturnal AI’s personality & knowledge expansion.</p>
+                    <p>🚀 <strong>3D Model Update: Lip Synchronization & Facial Expressions (Coming Soon!)</strong></p>
+                </div>
+
+                <div class="roadmap-phase">
+                    <h4>🔗 Phase 3: Blockchain & Web3 Integration</h4>
+                    <p>🔗 Implement token staking for AI usage.</p>
+                    <p>🔗 Introduce Web3 integration for transactions.</p>
+                    <p>🔗 Enable NFT authentication for premium features.</p>
+                    <p>🔗 AI-Powered Metaverse Avatars.</p>
+                </div>
+
+                <div class="roadmap-phase">
+                    <h4>🌐 Phase 4: Full-Scale AI Deployment</h4>
+                    <p>🌐 Expand AI capabilities to support multiple languages.</p>
+                    <p>🌐 Integrate AI-generated visuals for immersive experiences.</p>
+                    <p>🌐 Enable API access for external projects.</p>
+                    <p>🌐 AI-Generated Content for AR/VR & Metaverse.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    
+    <script src="script.js"></script>
+</body>
+</html>
