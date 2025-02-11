@@ -1,13 +1,17 @@
+/* ✅ GENERAL BODY STYLES */
 body {
-    background: black;
+    background: url('https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHNnNDhzb3kzdHpydWdyY2dvNnd0bXdtbW1neHAyZGl1ZWRzeDB1ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7jk0ZTOG0dfW6PaleD/giphy.gif') no-repeat center center fixed;
+    background-size: cover;
     font-family: 'Orbitron', sans-serif;
     color: lime;
     text-align: center;
     margin: 0;
-    overflow: hidden;
+    height: 100%;
+    overflow-y: auto; /* Enables scrolling */
+    animation: startup-glitch 2s ease-in-out;
 }
 
-/* 🔥 Fingerprint Scanner */
+/* ✅ FINGERPRINT SCANNER */
 #scan-screen {
     position: fixed;
     top: 0;
@@ -22,14 +26,14 @@ body {
     text-transform: uppercase;
 }
 
-/* 🔥 Scan Text */
+/* ✅ SCAN TEXT */
 #scan-text {
     font-size: 2rem;
     color: lime;
     text-shadow: 0 0 10px lime, 0 0 20px lime;
 }
 
-/* 🔥 Scan Animation */
+/* ✅ SCAN ANIMATION */
 #scan-animation {
     width: 150px;
     height: 150px;
@@ -39,12 +43,12 @@ body {
     margin-top: 20px;
 }
 
-/* ✅ Scanning Effect */
+/* ✅ SCANNING EFFECT */
 .scanning {
     animation: flicker 1s infinite alternate;
 }
 
-/* 🔥 Access Granted Screen */
+/* ✅ ACCESS GRANTED SCREEN */
 #access-screen {
     position: fixed;
     top: 0;
@@ -59,7 +63,7 @@ body {
     text-transform: uppercase;
 }
 
-/* ✅ Hacker Typing Effect for Access Granted */
+/* ✅ HACKER TYPING EFFECT FOR ACCESS GRANTED */
 #access-text {
     font-size: 2.5rem;
     color: lime;
@@ -71,7 +75,7 @@ body {
     animation: typing 2s steps(20, end) forwards;
 }
 
-/* 🔥 Welcome Screen */
+/* ✅ WELCOME SCREEN */
 #intro-screen {
     position: fixed;
     top: 0;
@@ -86,7 +90,7 @@ body {
     text-shadow: 0 0 10px lime, 0 0 20px lime;
 }
 
-/* ✅ Hacker Typing Effect for Welcome Text */
+/* ✅ HACKER TYPING EFFECT FOR WELCOME TEXT */
 .intro-text {
     font-size: 3rem;
     color: lime;
@@ -97,42 +101,30 @@ body {
     animation: typing 3s steps(30, end) forwards;
 }
 
-/* ✅ Hacker Typing Animation */
+/* ✅ HACKER TYPING ANIMATION */
 @keyframes typing {
     from { width: 0; }
     to { width: 100%; }
 }
 
-/* ✅ Flickering Effect */
+/* ✅ FLICKERING EFFECT */
 @keyframes flicker {
     0% { filter: brightness(1); }
     100% { filter: brightness(2); }
 }
 
-/* 🔥 Chatbot */
+/* ✅ CHATBOT CONTAINER */
 #chatbot-container {
     opacity: 0;
     transition: opacity 1s ease-in-out;
 }
 
-/* Enable Website Scrolling */
+/* ✅ SCROLL ENABLED */
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
     overflow-y: auto; /* Enables scrolling */
-}
-
-/* Enable Website Scrolling */
-body {
-    background: url('https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExeHNnNDhzb3kzdHpydWdyY2dvNnd0bXdtbW1neHAyZGl1ZWRzeDB1ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/7jk0ZTOG0dfW6PaleD/giphy.gif') no-repeat center center fixed;
-    background-size: cover;
-    font-family: 'Orbitron', sans-serif;
-    color: #0f0;
-    text-align: center;
-    overflow-y: auto; /* Enables scrolling */
-    max-height: 100vh;
-    animation: startup-glitch 2s ease-in-out;
 }
 
 
