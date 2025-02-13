@@ -382,6 +382,21 @@ button:hover {
     100% { text-shadow: -1px -1px 5px lime, 1px 1px 5px lime; }
 }
 
+/* ✅ CONTINUOUS BLINKING EFFECT */
+@keyframes blink {
+    0% { opacity: 1; text-shadow: 0 0 10px lime, 0 0 20px lime; }
+    50% { opacity: 0.2; text-shadow: 0 0 5px lime, 0 0 10px lime; }
+    100% { opacity: 1; text-shadow: 0 0 10px lime, 0 0 20px lime; }
+}
+
+/* ✅ APPLY BLINKING EFFECT TO AI RESPONSES */
+.blinking-text {
+    animation: blink 1s infinite;
+    color: lime;
+    font-weight: bold;
+}
+
+
 /* Tokenomics Table */
 .tokenomics-table {
     width: 100%;

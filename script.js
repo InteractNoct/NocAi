@@ -122,14 +122,22 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // ✅ Function to Append Messages
-    function appendMessage(text, className) {
-        const messageElement = document.createElement("p");
-        messageElement.classList.add(className);
-        messageElement.textContent = text;
-        chatBox.appendChild(messageElement);
-        return messageElement;
+    // ✅ Function to Append Messages with Blinking Effect for AI
+function appendMessage(text, className) {
+    const messageElement = document.createElement("p");
+    messageElement.classList.add(className);
+
+    // ✅ Apply blinking effect ONLY to AI responses
+    if (className === "bot-text") {
+        messageElement.classList.add("blinking-text");
     }
+
+    messageElement.textContent = text;
+    chatBox.appendChild(messageElement);
+    chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to latest message
+
+    return messageElement;
+}
 
     // ✅ Stop Speaking Button
     stopSpeakButton.addEventListener("click", function () {
