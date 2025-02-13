@@ -72,7 +72,7 @@ body {
     white-space: nowrap;
     border-right: 2px solid lime;
     width: 0;
-    animation: typing 2s steps(20, end) forwards;
+    animation: typing 1s steps(20, end) forwards;
 }
 
 /* ✅ WELCOME SCREEN */
@@ -98,7 +98,7 @@ body {
     white-space: nowrap;
     border-right: 2px solid lime;
     width: 0;
-    animation: typing 3s steps(30, end) forwards;
+    animation: typing 1s steps(30, end) forwards;
 }
 
 /* ✅ HACKER TYPING ANIMATION */
