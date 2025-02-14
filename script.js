@@ -1671,6 +1671,17 @@ else if (
       ]);
     }
 
+     // Nocturnal AI Contract Address
+     else if (
+       input.includes("what is the ca") || 
+       input.includes("contract address of nocturnal") || 
+       input.includes("nocturnal contract address") || 
+       input.includes("what is the contract address for nocturnal") || 
+       input.includes("nocturnal ca")
+    ) {
+      return "The contract address for Nocturnal AI is: *4YAkJ2bPRuPvAdPUVYiFa3kV4DEi7mSiFDnWoyWMpump*.";
+    }
+
     // What is Crypto?
     else if (input.includes("what is crypto") || input.includes("define crypto") || 
          input.includes("what does crypto mean") || input.includes("explain crypto") || 
