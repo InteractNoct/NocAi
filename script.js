@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener("click", enableSpeech);
     document.addEventListener("touchstart", enableSpeech); // iOS Fix
 
-    // ✅ Fake Fingerprint Scanner Click Event
+    // ✅  Fingerprint Scanner Click Event
     scanScreen.addEventListener("click", function () {
         console.log("🔹 Fake scanner clicked – granting access...");
 
