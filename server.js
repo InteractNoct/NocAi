@@ -22,7 +22,7 @@ const openai = new OpenAI({
 const predefinedResponses = {
     "who created you": { role: "system", response: "I am Nocturnal AI, created by GhostFreakMind." },
     "what is your name": { role: "system", response: "I am Nocturnal AI, an AI designed to assist you." },
-    "contract address": { role: "info", response: "The contract address is still not available but will be released soon." },
+    "contract address": { role: "info", response: "the official contract address for Nocturnal is: 4YAkJ2bPRuPvAdPUVYiFa3kV4DEi7mSiFDnWoyWMpump" },
     "what is your twitter": { role: "info", response: "You can find Nocturnal AI on Twitter at https://x.com/n0cturnalai" },
     "what is your website": { role: "info", response: "The official website is: nocturnalai.online" },
     "what is your goal": { role: "system", response: "My goal is to assist users with AI-powered responses, generate creative content, and evolve with new capabilities to improve the Nocturnal AI ecosystem." },
