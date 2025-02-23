@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -16,10 +15,34 @@
 
     <!-- 🔗 External Stylesheets -->
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image/png" href="favicon-32x32.png/">
-    
+    <link rel="icon" type="image/png" href="favicon-32x32.png">
 </head>
 <body>
+    <div class="matrix-background">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <div class="grid-overlay"></div>
+    <div id="threejs-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></div>
 
     <!-- 🔥 Fingerprint Scan Intro -->
     <div id="scan-screen">
@@ -39,9 +62,9 @@
 
     <!-- 🛠️ Chatbot Container -->
     <div class="chat-container" id="chatbot-container" style="display: none;">
-        <h2>Nocturnal AI</h2>
+        <h2>Nocturnal</h2>
         <div class="chat-box" id="chat-box">
-            <p class="bot-text"> Nocturnal: Hello! How can I assist you?</p>
+            <p class="bot-text">Nocturnal: Hello! How can I assist you?</p>
         </div>
         <input type="text" id="chat-input" placeholder="Type a message... Press Enter or Send">
         <button id="send-button">Send</button>
@@ -55,6 +78,7 @@
 
         <!-- Social Links -->
         <div class="clickable-links">
+            <a href="https://t.me/NocturnalOnSol" target="_blank" id="telegramLink">Telegram</a>
             <a href="https://x.com/n0cturnalai" target="_blank" id="twitterLink">Twitter</a>
             <a href="https://www.nocturnalai.online" target="_blank" id="websiteLink">Website</a>
         </div>
@@ -62,7 +86,7 @@
         <!-- Spinning Circular Crypto Logos -->
         <div class="crypto-logos">
             <div class="logo-container">
-                <img src="https://s2.coinmarketcap.com/static/cloud/img/coinmarketcap_1.svg" alt="CoinMarketCap" class="spinning-logo">
+                <img src="https://www.cryptimi.com/wp-content/uploads/2019/03/CoinMarketCap-Logo.jpg" alt="CoinMarketCap" class="spinning-logo">
             </div>
             <div class="logo-container">
                 <img src="https://www.coingecko.com/favicon-32x32.png" alt="CoinGecko" class="spinning-logo">
@@ -139,6 +163,9 @@
         </div>
     </div>
 
+    <!-- 🔗 External Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/examples/js/loaders/GLTFLoader.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
